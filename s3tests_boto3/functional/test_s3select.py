@@ -174,9 +174,9 @@ def create_list_of_int(column_pos,obj,field_split=",",row_split="\n"):
        
 @attr('s3select')
 def test_count_operation():
-    csv_obj_name = "csv_star_oper"
+    csv_obj_name = get_random_string() #"csv_star_oper"
     bucket_name = "test"
-    num_of_rows = 10
+    num_of_rows = 1234
     obj_to_load = create_random_csv_object(num_of_rows,10)
     upload_csv_object(bucket_name,csv_obj_name,obj_to_load)
     res = remove_xml_tags_from_result( run_s3select(bucket_name,csv_obj_name,"select count(0) from stdin;") ).replace(",","")
