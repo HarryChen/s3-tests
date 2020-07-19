@@ -64,7 +64,7 @@ def generate_s3select_expression_projection(bucket_name,obj_name):
         # both results should be close (epsilon)
         assert (1 - (float(res.split("\n")[1]) / eval( e )) ) < epsilon
 
-@attr('s3select')
+@attr('not_appl')
 def get_random_string():
 
     return uuid.uuid4().hex[:6].upper()
@@ -80,7 +80,7 @@ def test_generate_where_clause():
     for _ in range(100): 
         generate_s3select_where_clause(bucket_name,obj_name)
 
-@attr('s3select')
+@attr('not_appl')
 def test_generate_projection():
 
     # create small csv file for testing the random expressions
@@ -172,7 +172,7 @@ def create_list_of_int(column_pos,obj,field_split=",",row_split="\n"):
 
     return list_of_int
        
-@attr('s3select')
+@attr('not_appl')
 def test_count_operation():
     csv_obj_name = get_random_string() #"csv_star_oper"
     bucket_name = "test"
@@ -183,7 +183,7 @@ def test_count_operation():
 
     nose.tools.assert_equal( num_of_rows, int( res ))
 
-@attr('s3select')
+@attr('not_appl')
 def test_column_sum_min_max():
     csv_obj = create_random_csv_object(10000,10)
 
@@ -242,7 +242,7 @@ def test_column_sum_min_max():
 
     nose.tools.assert_equal( int(count)*4 , int(sum1)-int(sum2) )
 
-@attr('s3select')
+@attr('not_appl')
 def test_complex_expressions():
 
     # purpose of test: engine is process correctly several projections containing aggregation-functions 
@@ -274,7 +274,7 @@ def test_complex_expressions():
 
     nose.tools.assert_equal( res_s3select_between_numbers, res_s3select_eq_modolu)
     
-@attr('s3select')
+@attr('not_appl')
 def test_alias():
 
     # purpose: test is comparing result of exactly the same queries , one with alias the other without.
@@ -295,7 +295,7 @@ def test_alias():
     nose.tools.assert_equal( res_s3select_alias, res_s3select_no_alias)
 
 
-@attr('s3select')
+@attr('not_appl')
 def test_alias_cyclic_refernce():
 
     number_of_rows = 10000
@@ -313,7 +313,7 @@ def test_alias_cyclic_refernce():
     
     assert int(find_res) >= 0 
 
-@attr('s3select')
+@attr('not_appl')
 def test_datetime():
 
     # purpose of test is to validate date-time functionality is correct,
@@ -347,7 +347,7 @@ def test_datetime():
 
     nose.tools.assert_equal( res_s3select_date_time_utcnow, res_s3select_count)
 
-@attr('s3select')
+@attr('not_appl')
 def test_csv_parser():
 
     # purpuse: test default csv values(, \n " \ ), return value may contain meta-char 
@@ -387,7 +387,7 @@ def test_csv_parser():
     res_s3select_alias = remove_xml_tags_from_result(  run_s3select(bucket_name,csv_obj_name,"select _9 from stdin;")  ).replace("\n","")
     nose.tools.assert_equal( res_s3select_alias, ',')
 
-@attr('s3select')
+@attr('not_appl')
 def test_csv_definition():
 
     number_of_rows = 10000
@@ -417,7 +417,7 @@ def test_csv_definition():
     nose.tools.assert_equal( res_s3select, __res )
 
 
-@attr('s3select')
+@attr('not_appl')
 def test_schema_definition():
 
     number_of_rows = 10000
